@@ -4,11 +4,11 @@ abstract class ArithmeticExp {
 }
 
 // Abstract class for Binary expressions
-abstract class Binary extends ArithmeticExp {
-    protected ArithmeticExp left;
-    protected ArithmeticExp right;
+abstract class BinaryExp extends ArithmeticExp {
+    public ArithmeticExp left;
+    public ArithmeticExp right;
 
-    public Binary(ArithmeticExp left, ArithmeticExp right) {
+    public BinaryExp(ArithmeticExp left, ArithmeticExp right) {
         this.left = left;
         this.right = right;
     }
@@ -29,7 +29,7 @@ class Number extends ArithmeticExp {
 }
 
 // Class for Sum expressions
-class Sum extends Binary {
+class Sum extends BinaryExp {
     public Sum(ArithmeticExp left, ArithmeticExp right) {
         super(left, right);
     }
@@ -41,7 +41,7 @@ class Sum extends Binary {
 }
 
 // Class for Product expressions
-class Product extends Binary {
+class Product extends BinaryExp {
     public Product(ArithmeticExp left, ArithmeticExp right) {
         super(left, right);
     }
@@ -52,3 +52,20 @@ class Product extends Binary {
     }
 }
 
+// Main class with updated structure
+public class ArithmeticOperation {
+    public static void main(String[] args) {
+        // Constructing for a sample expression 3 + 2 * 5
+        ArithmeticExp term = new Sum(
+                new Number(3),
+                new Product(new Number(2), new Number(5))
+        );
+
+        System.out.println(evaluate(term));
+    }
+
+    // Evaluating the expression recursively
+    public static int evaluate(ArithmeticExp term) {
+        return term.evaluate();
+    }
+}
